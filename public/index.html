@@ -1378,13 +1378,17 @@
     //  SESSION ID — unique per browser tab, persisted in sessionStorage
     //  (sessionStorage clears when the tab closes — perfect for isolation)
     // ════════════════════════════════
+    // ✅ Works on both HTTP and HTTPS
     function getSessionId() {
-      let id = sessionStorage.getItem('abSessionId');
-      if (!id) {
-        id = crypto.randomUUID();
-        sessionStorage.setItem('abSessionId', id);
+      if (crypto.randomUUID) {
+        return crypto.randomUUID();
       }
-      return id;
+      // Fallback for non-secure contexts
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
     }
     const SID = getSessionId();
 

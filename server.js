@@ -188,7 +188,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 function speedMs(speed) {
   if (speed === "fast") return 600 + Math.random() * 800;
   if (speed === "medium") return 1500 + Math.random() * 2500;
-  return 3500 + Math.random() * 4500;
+  return 4000 + Math.random() * 5000;
 }
 
 function personalise(msg, contact) {
